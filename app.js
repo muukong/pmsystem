@@ -7,7 +7,7 @@ const app = express();
 const PORT = 8080;
 
 /*
- * Mongoose Schemata
+ * MongoDB initialization
  */
 
 var userSchema = new mongoose.Schema({
@@ -25,12 +25,34 @@ var messageSchema = new mongoose.Schema({
 var Message = mongoose.model('Message', messageSchema);
 
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/pm_system');
 mongoose.connect('mongodb://mongodb:27017/pm_system');
 var db = mongoose.connection;
-//db.on('error', console.error.bind(console, 'DB connection error:'));
+db.on('error', console.error.bind(console, 'DB connection error:'));
 db.once('open', function() {
     console.log('[*] We are connected to the database!');
+});
+
+var user = new User({ username: 'admin', password: 'admin.123!'});
+user.save(function(err, user) {
+    if ( err ) throw err;
+    console.log('[*] Added admin user');
+});
+ 
+var user = new User({ username: 'whistleblower', password: 'whistleblower.123!'});
+user.save(function(err, user) {
+    if ( err ) throw err;
+    console.log('[*] Added whistleblower user');
+});
+
+const message = new Message({
+    sender: 'whistleblower',
+    recipient: 'admin',
+    subject: 'TOP SECRET',
+    message: 'This is a top secret message'
+});
+message.save(function(err, msg) {
+    if ( err ) throw err;
+    console.log('[*] Added top secret message');
 });
 
 /*
