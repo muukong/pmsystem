@@ -1,0 +1,20 @@
+{
+  "name": "pm_system",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^2.6.1",
+    "ejs-var": "^1.0.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.4.15"
+  },
+  "devDependencies": {},
+  "description": ""
+}

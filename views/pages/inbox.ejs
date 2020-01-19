@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header', {authenticated:authenticated}) %>
+
+    <style>
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</header>
+
+<main>
+
+    <div class "inbox-list">
+    <h2>Inbox</h2>
+        <% messages.forEach(function(o) { %>
+            <div class="well">
+                <div id="<%= o._id %>" class="message-heading">
+                    <h4 class="message-subject"><%= o.subject %></h4>
+                    
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-user"></i> <%= o.sender %> </small></p>
+                </div>
+                <div class="message-body">
+                  <pre><%- o.message %></pre>
+                </div>
+                <div>
+                <button class = "glyphicon glyphicon-remove" onclick=deleteMessage('<%= o._id %>')></button>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>
+
