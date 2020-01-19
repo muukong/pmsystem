@@ -26,11 +26,11 @@ var Message = mongoose.model('Message', messageSchema);
 
 var mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost/pm_system');
-mongoose.connect('mongodb://mongo:27017/pm_system');
+mongoose.connect('mongodb://mongodb:27017/pm_system');
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'DB connection error:'));
+//db.on('error', console.error.bind(console, 'DB connection error:'));
 db.once('open', function() {
-    // we are connected now
+    console.log('[*] We are connected to the database!');
 });
 
 /*

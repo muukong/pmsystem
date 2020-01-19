@@ -1,20 +1,35 @@
-version: "2"
+version: '3'
+
 services:
   app:
-    container_name: pm_system
-    restart: always
-    build: .
+    build:
+        context: .
+        dockerfile: Dockerfile
+    image: pmsystem
+    container_name: pmsystem
+    restart: unless-stopped
     ports:
       - "8888:8080"
-    links:
-      - mongo
     volumes:
-        - '.:/app'
-    depends_on:
-        - "mongo"
-  mongo:
-    container_name: mongo
+        - .:/home/node/app
+        - node_modules:/home/node/app/node_modules
+    networks:
+        - pmsystem-network
+    #command: /home/node/app/wait-for.sh mongodb:27017 -t 10 -- node app.js
+    command: bash -c "sleep 15 && node app.js"
+  mongodb:
     image: mongo
+    container_name: pmsystem_mongodb
+    restart: unless-stopped
     ports:
-      - "27017:27017"
+        - "27017"
+    networks:
+        - pmsystem-network
+
+networks:
+    pmsystem-network:
+        driver: bridge
+
+volumes:
+    node_modules:
 
